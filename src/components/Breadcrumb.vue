@@ -4,10 +4,10 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb-text product-more">
-                        <a href="">
+                        <router-link to="/">
                             <small><font-awesome-icon icon="fa-solid fa-house" /></small>
                             &ensp;Home
-                        </a>
+                        </router-link>
                         <span>
                             <small><font-awesome-icon icon="fa-solid fa-chevron-right" /> </small>
                             &ensp;Detail

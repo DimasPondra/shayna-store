@@ -3,7 +3,7 @@
         <nav class="container navbar navbar-expand-lg bg-none">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <img src="images/logo_website_shayna.png" alt="" srcset="" />
+                    <img src="../assets/images/logo_website_shayna.png" alt="" srcset="" />
                 </a>
                 <button
                     class="navbar-toggler"
@@ -24,9 +24,9 @@
                         <li class="nav-item">
                             <RouterLink to="/about" class="nav-link">About</RouterLink>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <RouterLink to="/product" class="nav-link">Product</RouterLink>
-                        </li>
+                        </li> -->
                         <!-- <li class="nav-item">
                             <a class="nav-link disabled">Disabled</a>
                         </li> -->

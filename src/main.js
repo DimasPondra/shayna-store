@@ -11,6 +11,8 @@ import { faCartArrowDown, faHome, faChevronRight, faXmark } from "@fortawesome/f
 
 import "./assets/css/main.css";
 
+import "./axios";
+
 library.add(faFacebook, faInstagram, faTwitter, faPinterest, faCartArrowDown, faHome, faChevronRight, faXmark);
 
 const app = createApp(App);
