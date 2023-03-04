@@ -1,0 +1,39 @@
+<template>
+    <Product :products="products" />
+</template>
+
+<script>
+import axios from "axios";
+import Product from "../components/Product.vue";
+
+export default {
+    components: {
+        Product,
+    },
+    data() {
+        return {
+            products: [],
+            include: "category,file",
+        };
+    },
+    computed: {
+        params: function () {
+            return {
+                include: this.include,
+            };
+        },
+    },
+    created() {
+        this.loadData();
+    },
+    methods: {
+        async loadData() {
+            const response = await axios.get("products", {
+                params: this.params,
+            });
+
+            this.products = response.data.data;
+        },
+    },
+};
+</script>

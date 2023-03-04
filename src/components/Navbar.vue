@@ -22,7 +22,7 @@
                             <RouterLink to="/" class="nav-link active">Home</RouterLink>
                         </li>
                         <li class="nav-item">
-                            <RouterLink to="/about" class="nav-link">About</RouterLink>
+                            <RouterLink to="/products" class="nav-link">Product</RouterLink>
                         </li>
                         <!-- <li class="nav-item">
                             <RouterLink to="/product" class="nav-link">Product</RouterLink>
