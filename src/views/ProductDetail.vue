@@ -24,7 +24,9 @@
                                     <h4>{{ product.price }}</h4>
                                 </div>
                                 <div class="quantity">
-                                    <a href="" class="primary-btn pd-cart">Add To Cart</a>
+                                    <button @click="addToCart()" class="primary-btn pd-cart border-0">
+                                        Add To Cart
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -41,6 +43,8 @@
 import Breadcrumb from "../components/Breadcrumb.vue";
 import ProductRelated from "../components/Product.vue";
 import axios from "axios";
+import { mapState } from "pinia";
+import { useAuthStore } from "../stores/auth";
 
 export default {
     components: {
@@ -60,6 +64,9 @@ export default {
                     url: "",
                 },
             },
+            cart: {
+                product_id: null,
+            },
             query_params: {
                 include: "category,file",
             },
@@ -71,6 +78,7 @@ export default {
                 include: this.query_params.include,
             };
         },
+        ...mapState(useAuthStore, ["token"]),
     },
     created() {
         this.loadProduct();
@@ -85,6 +93,20 @@ export default {
                 });
 
                 this.product = response.data.data;
+                this.cart.product_id = response.data.data.id;
+            }
+        },
+        async addToCart() {
+            try {
+                await axios.post("carts/store", this.cart, {
+                    headers: {
+                        Authorization: this.token,
+                    },
+                });
+
+                console.log("berhasil");
+            } catch (error) {
+                console.log(error);
             }
         },
     },
