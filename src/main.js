@@ -13,12 +13,18 @@ import "./assets/css/main.css";
 
 import "./axios";
 
+import { createPinia } from "pinia";
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
+
 library.add(faFacebook, faInstagram, faTwitter, faPinterest, faCartArrowDown, faHome, faChevronRight, faXmark);
 
 const app = createApp(App);
+const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
 
 app.use(router);
 app.use(bootstrap);
+app.use(pinia);
 app.component("font-awesome-icon", FontAwesomeIcon);
 
 app.mount("#app");

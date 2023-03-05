@@ -24,9 +24,9 @@
                         <li class="nav-item">
                             <RouterLink to="/products" class="nav-link">Product</RouterLink>
                         </li>
-                        <!-- <li class="nav-item">
-                            <RouterLink to="/product" class="nav-link">Product</RouterLink>
-                        </li> -->
+                        <li class="nav-item">
+                            <RouterLink to="/login" class="nav-link">Login</RouterLink>
+                        </li>
                         <!-- <li class="nav-item">
                             <a class="nav-link disabled">Disabled</a>
                         </li> -->
