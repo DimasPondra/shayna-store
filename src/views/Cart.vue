@@ -27,7 +27,9 @@
                                             </td>
                                             <td class="p-price first-row">{{ cart.product.format_price }}</td>
                                             <td class="delete-item">
-                                                <a href=""><font-awesome-icon icon="fa-solid fa-xmark" /></a>
+                                                <button @click="handleDelete(cart.id)" class="border-0 bg-white">
+                                                    <font-awesome-icon icon="fa-solid fa-xmark" />
+                                                </button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -102,6 +104,20 @@ export default {
             this.carts.forEach((cart) => {
                 this.total += parseInt(cart.product.price);
             });
+        },
+        async handleDelete(id) {
+            try {
+                await axios.delete(`carts/${id}/delete`, {
+                    headers: {
+                        Authorization: this.token,
+                    },
+                });
+
+                this.total = 0;
+                this.loadData();
+            } catch (error) {
+                console.log(error);
+            }
         },
     },
 };
