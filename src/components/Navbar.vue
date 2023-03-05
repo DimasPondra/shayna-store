@@ -27,6 +27,9 @@
                         <li class="nav-item">
                             <RouterLink to="/login" class="nav-link">Login</RouterLink>
                         </li>
+                        <li class="nav-item">
+                            <RouterLink to="/cart" class="nav-link">Cart</RouterLink>
+                        </li>
                         <!-- <li class="nav-item">
                             <a class="nav-link disabled">Disabled</a>
                         </li> -->
