@@ -50,7 +50,7 @@
                                         Total Biaya <span>{{ currency }}</span>
                                     </li>
                                 </ul>
-                                <a href="" class="proceed-btn">CHECKOUT NOW</a>
+                                <button @click="handleCheckout" class="proceed-btn w-100">CHECKOUT NOW</button>
                             </div>
                         </div>
                     </div>
@@ -65,6 +65,7 @@ import axios from "axios";
 import Breadcrumb from "../components/Breadcrumb.vue";
 import { mapState } from "pinia";
 import { useAuthStore } from "../stores/auth";
+import router from "../router";
 
 export default {
     components: {
@@ -115,6 +116,25 @@ export default {
 
                 this.total = 0;
                 this.loadData();
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async handleCheckout() {
+            try {
+                const response = await axios.post(
+                    "checkout/store",
+                    {},
+                    {
+                        headers: {
+                            Authorization: this.token,
+                        },
+                    }
+                );
+
+                let id = response.data.data.transaction_id;
+
+                router.push(`transactions/${id}`);
             } catch (error) {
                 console.log(error);
             }
