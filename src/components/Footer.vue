@@ -25,7 +25,7 @@
                         <h5>Information</h5>
                         <ul>
                             <li><RouterLink to="/">Home</RouterLink></li>
-                            <li><RouterLink to="/about">About Us</RouterLink></li>
+                            <li><RouterLink to="/products">Product</RouterLink></li>
                         </ul>
                     </div>
                 </div>
