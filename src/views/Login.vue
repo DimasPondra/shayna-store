@@ -65,3 +65,9 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.required {
+    color: red;
+}
+</style>
