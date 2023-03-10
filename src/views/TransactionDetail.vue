@@ -164,6 +164,7 @@ export default {
     created() {
         this.loadData();
         this.loadBankAccount();
+        document.title = `Shayna Store - ${this.$route.meta.title}`;
     },
     methods: {
         async loadData() {

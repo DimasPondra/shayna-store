@@ -19,20 +19,40 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <RouterLink to="/" class="nav-link active">Home</RouterLink>
+                            <RouterLink
+                                to="/"
+                                class="nav-link"
+                                :class="this.$route.meta.name_page == 'home' ? 'active' : ''"
+                                >Home</RouterLink
+                            >
                         </li>
                         <li class="nav-item">
-                            <RouterLink to="/products" class="nav-link">Product</RouterLink>
+                            <RouterLink
+                                to="/products"
+                                class="nav-link"
+                                :class="this.$route.meta.name_page == 'products' ? 'active' : ''"
+                                >Product</RouterLink
+                            >
                         </li>
                     </ul>
                     <ul class="navbar-nav" v-if="token == null">
                         <li class="nav-item">
-                            <RouterLink to="/login" class="nav-link">Login</RouterLink>
+                            <RouterLink
+                                to="/login"
+                                class="nav-link"
+                                :class="this.$route.meta.name_page == 'login' ? 'active' : ''"
+                                >Login</RouterLink
+                            >
                         </li>
                     </ul>
                     <ul class="navbar-nav" v-else>
                         <li class="nav-item">
-                            <RouterLink to="/cart" class="nav-link">Cart</RouterLink>
+                            <RouterLink
+                                to="/cart"
+                                class="nav-link"
+                                :class="this.$route.meta.name_page == 'cart' ? 'active' : ''"
+                                >Cart</RouterLink
+                            >
                         </li>
                         <li class="nav-item">
                             <button @click="handleLogout" class="nav-link border-0 bg-white">Logout</button>

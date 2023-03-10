@@ -50,6 +50,9 @@ export default {
             },
         };
     },
+    created() {
+        document.title = `Shayna Store - ${this.$route.meta.title}`;
+    },
     methods: {
         ...mapActions(useAuthStore, ["login"]),
         async handleSubmit() {

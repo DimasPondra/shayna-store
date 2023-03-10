@@ -90,6 +90,7 @@ export default {
     },
     created() {
         this.loadData();
+        document.title = `Shayna Store - ${this.$route.meta.title}`;
     },
     methods: {
         async loadData() {

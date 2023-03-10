@@ -32,6 +32,7 @@ export default {
     },
     created() {
         this.loadProducts();
+        document.title = `Shayna Store - ${this.$route.meta.title}`;
     },
     methods: {
         async loadProducts() {
