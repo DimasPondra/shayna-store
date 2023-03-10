@@ -23,10 +23,13 @@
                                     </p>
                                     <h4>{{ product.price }}</h4>
                                 </div>
-                                <div class="quantity">
+                                <div class="quantity" v-if="token != null">
                                     <button @click="addToCart()" class="primary-btn pd-cart border-0">
                                         Add To Cart
                                     </button>
+                                </div>
+                                <div class="quality" v-else>
+                                    <RouterLink to="/login" class="primary-btn pd-cart">Login</RouterLink>
                                 </div>
                             </div>
                         </div>

@@ -24,18 +24,39 @@
                         <li class="nav-item">
                             <RouterLink to="/products" class="nav-link">Product</RouterLink>
                         </li>
+                    </ul>
+                    <ul class="navbar-nav" v-if="token == null">
                         <li class="nav-item">
                             <RouterLink to="/login" class="nav-link">Login</RouterLink>
                         </li>
+                    </ul>
+                    <ul class="navbar-nav" v-else>
                         <li class="nav-item">
                             <RouterLink to="/cart" class="nav-link">Cart</RouterLink>
                         </li>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link disabled">Disabled</a>
-                        </li> -->
+                        <li class="nav-item">
+                            <button @click="handleLogout" class="nav-link border-0 bg-white">Logout</button>
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
 </template>
+
+<script>
+import { mapActions, mapState } from "pinia";
+import { useAuthStore } from "../stores/auth";
+
+export default {
+    computed: {
+        ...mapState(useAuthStore, ["token"]),
+    },
+    methods: {
+        ...mapActions(useAuthStore, ["logout"]),
+        handleLogout() {
+            this.logout();
+        },
+    },
+};
+</script>
