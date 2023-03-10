@@ -48,6 +48,7 @@ import ProductRelated from "../components/Product.vue";
 import axios from "axios";
 import { mapState } from "pinia";
 import { useAuthStore } from "../stores/auth";
+import { useToast } from "vue-toastification";
 
 export default {
     components: {
@@ -101,6 +102,8 @@ export default {
             }
         },
         async addToCart() {
+            const toast = useToast();
+
             try {
                 await axios.post("carts/store", this.cart, {
                     headers: {
@@ -108,9 +111,12 @@ export default {
                     },
                 });
 
-                console.log("berhasil");
+                toast.success("Successfully add to cart.");
             } catch (error) {
-                console.log(error);
+                const data = error.response.data;
+                if (data.message != null) {
+                    toast.error(data.message);
+                }
             }
         },
     },

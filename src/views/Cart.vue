@@ -66,6 +66,7 @@ import Breadcrumb from "../components/Breadcrumb.vue";
 import { mapState } from "pinia";
 import { useAuthStore } from "../stores/auth";
 import router from "../router";
+import { useToast } from "vue-toastification";
 
 export default {
     components: {
@@ -108,6 +109,8 @@ export default {
             });
         },
         async handleDelete(id) {
+            const toast = useToast();
+
             try {
                 await axios.delete(`carts/${id}/delete`, {
                     headers: {
@@ -117,11 +120,14 @@ export default {
 
                 this.total = 0;
                 this.loadData();
+                toast.success("successfully deleted.");
             } catch (error) {
                 console.log(error);
             }
         },
         async handleCheckout() {
+            const toast = useToast();
+
             try {
                 const response = await axios.post(
                     "checkout/store",
@@ -137,7 +143,10 @@ export default {
 
                 router.push(`transactions/${id}`);
             } catch (error) {
-                console.log(error);
+                const data = error.response.data;
+                if (data.message != null) {
+                    toast.error(data.message);
+                }
             }
         },
     },

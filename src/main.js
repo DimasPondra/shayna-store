@@ -16,6 +16,9 @@ import "./axios";
 import { createPinia } from "pinia";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
+
 library.add(faFacebook, faInstagram, faTwitter, faPinterest, faCartArrowDown, faHome, faChevronRight, faXmark);
 
 const app = createApp(App);
@@ -24,6 +27,7 @@ pinia.use(piniaPluginPersistedstate);
 
 app.use(router);
 app.use(bootstrap);
+app.use(Toast);
 app.use(pinia);
 app.component("font-awesome-icon", FontAwesomeIcon);
 
