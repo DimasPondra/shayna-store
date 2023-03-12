@@ -1,49 +1,54 @@
 <template>
     <main>
-        <Carousel />
+        <Carousel :carousels="carousels" />
         <Product :products="products" />
-        <Instagram />
+        <!-- <Instagram /> -->
     </main>
 </template>
 
 <script>
 import Carousel from "../components/Carousel.vue";
 import Product from "../components/Product.vue";
-import Instagram from "../components/Instagram.vue";
+// import Instagram from "../components/Instagram.vue";
 import axios from "axios";
 
 export default {
     components: {
         Product,
-        Instagram,
+        // Instagram,
         Carousel,
     },
     data() {
         return {
             products: [],
-            query_params: {
-                include: "category,file",
-            },
+            carousels: [],
         };
     },
-    computed: {
-        params: function () {
-            return {
-                include: this.query_params.include,
-            };
-        },
-    },
     created() {
-        this.loadProducts();
         document.title = `Shayna Store - ${this.$route.meta.title}`;
+        this.loadCarousels();
+        this.loadProducts();
     },
     methods: {
         async loadProducts() {
             const response = await axios.get("products", {
-                params: this.params,
+                params: {
+                    include: "category,file",
+                    limit: 4,
+                },
             });
 
             this.products = response.data.data;
+        },
+        async loadCarousels() {
+            const response = await axios.get("banners", {
+                params: {
+                    include: "file",
+                    limit: 3,
+                },
+            });
+
+            this.carousels = response.data.data;
         },
     },
 };
