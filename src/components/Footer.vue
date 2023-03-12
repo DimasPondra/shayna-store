@@ -22,7 +22,7 @@
                 </div>
                 <div class="col-lg-3 offset-lg-1">
                     <div class="footer-widget">
-                        <h5>Information</h5>
+                        <h5>Menu</h5>
                         <ul>
                             <li><RouterLink to="/">Home</RouterLink></li>
                             <li><RouterLink to="/products">Product</RouterLink></li>
@@ -33,10 +33,10 @@
                     <div class="footer-widget">
                         <h5>My Account</h5>
                         <ul>
-                            <li><a href="">My Account</a></li>
-                            <li><a href="">Contact</a></li>
-                            <li><a href="">Shopping Cart</a></li>
-                            <li><a href="">Shop</a></li>
+                            <li><p class="text-white" style="margin-bottom: 6px">My Account</p></li>
+                            <li><p class="text-white" style="margin-bottom: 6px">Contact</p></li>
+                            <li><p class="text-white" style="margin-bottom: 6px">Shopping Cart</p></li>
+                            <li><p class="text-white" style="margin-bottom: 6px">Shop</p></li>
                         </ul>
                     </div>
                 </div>
