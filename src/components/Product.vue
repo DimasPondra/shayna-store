@@ -1,5 +1,5 @@
 <template>
-    <section class="women-banner spad">
+    <section class="women-banner">
         <div class="container-fluid">
             <div class="row d-flex justify-content-center">
                 <div class="col-lg-3 mt-5" v-for="product in products" :key="product.id">

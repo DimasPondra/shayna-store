@@ -1,6 +1,11 @@
 <template>
     <main>
         <Carousel :carousels="carousels" />
+        <div class="row d-flex justify-content-center mt-5">
+            <div class="col-3 text-center">
+                <RouterLink to="/products" class="btn btn-warning">Show All Products</RouterLink>
+            </div>
+        </div>
         <Product :products="products" />
         <!-- <Instagram /> -->
     </main>
