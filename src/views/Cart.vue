@@ -1,7 +1,7 @@
 <template>
-    <Breadcrumb />
+    <Breadcrumb title="Cart" />
 
-    <section class="shopping-cart spad">
+    <section class="shopping-cart">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">

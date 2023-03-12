@@ -1,7 +1,7 @@
 <template>
-    <Breadcrumb />
+    <Breadcrumb title="Product Detail" />
 
-    <section class="product-shop spad page-details">
+    <section class="product-shop page-details">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">

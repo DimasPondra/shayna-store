@@ -1,5 +1,5 @@
 <template>
-    <Breadcrumb />
+    <Breadcrumb title="Transaction Detail" />
 
     <section class="shopping-cart spad">
         <div class="container">
@@ -136,6 +136,7 @@ export default {
                 id: null,
                 sub_total: "",
                 total: "",
+                status: "",
                 user: {
                     name: "",
                     email: "",

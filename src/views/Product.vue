@@ -1,14 +1,17 @@
 <template>
+    <Breadcrumb title="Product" />
     <Product :products="products" />
 </template>
 
 <script>
 import axios from "axios";
 import Product from "../components/Product.vue";
+import Breadcrumb from "../components/Breadcrumb.vue";
 
 export default {
     components: {
         Product,
+        Breadcrumb,
     },
     data() {
         return {

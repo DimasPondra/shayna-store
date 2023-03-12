@@ -10,7 +10,7 @@
                         </router-link>
                         <span>
                             <small><font-awesome-icon icon="fa-solid fa-chevron-right" /> </small>
-                            &ensp;Detail
+                            &ensp;{{ title }}
                         </span>
                     </div>
                 </div>
@@ -18,3 +18,11 @@
         </div>
     </div>
 </template>
+
+<script>
+export default {
+    props: {
+        title: "",
+    },
+};
+</script>
