@@ -617,3 +617,40 @@ body {
         }
     }
 }
+
+@media only screen and (max-width: 767px) {
+    .instagram-photo {
+        .insta-item {
+            width: 50%;
+            height: 300px;
+        }
+    }
+
+    .copyright-reserved {
+        .copyright-text {
+            float: none !important;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+    }
+}
+
+@media only screen and (max-width: 479px) {
+    .instagram-photo {
+        .insta-item {
+            width: 100%;
+        }
+    }
+
+    .cart-table {
+        overflow: auto;
+
+        table {
+            tr {
+                th {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}

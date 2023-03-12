@@ -1,11 +1,13 @@
 <template>
     <main>
+        <Carousel />
         <Product :products="products" />
         <Instagram />
     </main>
 </template>
 
 <script>
+import Carousel from "../components/Carousel.vue";
 import Product from "../components/Product.vue";
 import Instagram from "../components/Instagram.vue";
 import axios from "axios";
@@ -14,6 +16,7 @@ export default {
     components: {
         Product,
         Instagram,
+        Carousel,
     },
     data() {
         return {
