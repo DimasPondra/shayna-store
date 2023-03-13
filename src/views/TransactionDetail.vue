@@ -92,7 +92,10 @@
                             <div class="proceed-checkout">
                                 <ul>
                                     <li class="subtotal">
-                                        ID Transaction <span>{{ transaction.id }}</span>
+                                        ID
+                                        <span
+                                            ><small>{{ transaction.uuid }}</small></span
+                                        >
                                     </li>
                                     <li class="subtotal mt-3">
                                         Subtotal <span>{{ transaction.sub_total }}</span>
@@ -134,6 +137,7 @@ export default {
         return {
             transaction: {
                 id: null,
+                uuid: null,
                 sub_total: "",
                 total: "",
                 status: "",

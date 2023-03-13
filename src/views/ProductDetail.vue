@@ -21,7 +21,7 @@
                                     <p>
                                         {{ product.description }}
                                     </p>
-                                    <h4>{{ product.price }}</h4>
+                                    <h4>{{ product.format_price }}</h4>
                                 </div>
                                 <div class="quantity" v-if="token != null">
                                     <button @click="addToCart()" class="primary-btn pd-cart border-0">
@@ -60,7 +60,7 @@ export default {
             product: {
                 name: "",
                 description: "",
-                price: "",
+                format_price: "",
                 category: {
                     name: "",
                 },
