@@ -2,6 +2,11 @@
     <main>
         <div class="row d-flex justify-content-center mx-0 my-5">
             <div class="col-12 col-md-6 col-lg-4">
+                <div class="alert alert-warning" role="alert">
+                    <h5>Account !</h5>
+                    <p class="mt-3 mb-0"><small>Email: user@shayna.com</small></p>
+                    <p class="mb-0"><small>Password: secret</small></p>
+                </div>
                 <div class="card">
                     <div class="card-body">
                         <form @submit.prevent="handleSubmit">
