@@ -15,7 +15,9 @@
 import Carousel from "../components/Carousel.vue";
 import Product from "../components/Product.vue";
 // import Instagram from "../components/Instagram.vue";
-import axios from "axios";
+import { mapActions, mapState } from "pinia";
+import { useBannerStore } from "../stores/banners";
+import { useProductStore } from "../stores/products";
 
 export default {
     components: {
@@ -23,11 +25,9 @@ export default {
         // Instagram,
         Carousel,
     },
-    data() {
-        return {
-            products: [],
-            carousels: [],
-        };
+    computed: {
+        ...mapState(useBannerStore, ["carousels"]),
+        ...mapState(useProductStore, ["products"]),
     },
     created() {
         document.title = `Shayna Store - ${this.$route.meta.title}`;
@@ -35,25 +35,21 @@ export default {
         this.loadProducts();
     },
     methods: {
-        async loadProducts() {
-            const response = await axios.get("products", {
-                params: {
-                    include: "category,file",
-                    limit: 4,
-                },
-            });
-
-            this.products = response.data.data;
-        },
+        ...mapActions(useBannerStore, { getBanners: "get" }),
+        ...mapActions(useProductStore, { getProducts: "get" }),
         async loadCarousels() {
-            const response = await axios.get("banners", {
-                params: {
-                    include: "file",
-                    limit: 3,
-                },
-            });
-
-            this.carousels = response.data.data;
+            const params = {
+                include: "file",
+                limit: 3,
+            };
+            await this.getBanners(params);
+        },
+        async loadProducts() {
+            const params = {
+                include: "category,file",
+                limit: 4,
+            };
+            await this.getProducts(params);
         },
     },
 };

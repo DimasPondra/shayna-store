@@ -4,39 +4,30 @@
 </template>
 
 <script>
-import axios from "axios";
 import Product from "../components/Product.vue";
 import Breadcrumb from "../components/Breadcrumb.vue";
+import { mapActions, mapState } from "pinia";
+import { useProductStore } from "../stores/products";
 
 export default {
     components: {
         Product,
         Breadcrumb,
     },
-    data() {
-        return {
-            products: [],
-            include: "category,file",
-        };
-    },
     computed: {
-        params: function () {
-            return {
-                include: this.include,
-            };
-        },
+        ...mapState(useProductStore, ["products"]),
     },
     created() {
-        this.loadData();
         document.title = `Shayna Store - ${this.$route.meta.title}`;
+        this.loadProducts();
     },
     methods: {
-        async loadData() {
-            const response = await axios.get("products", {
-                params: this.params,
-            });
-
-            this.products = response.data.data;
+        ...mapActions(useProductStore, ["get"]),
+        async loadProducts() {
+            const params = {
+                include: "category,file",
+            };
+            await this.get(params);
         },
     },
 };
