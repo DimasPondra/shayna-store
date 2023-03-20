@@ -45,79 +45,43 @@
 <script>
 import Breadcrumb from "../components/Breadcrumb.vue";
 import ProductRelated from "../components/Product.vue";
-import axios from "axios";
-import { mapState } from "pinia";
+
+import { mapActions, mapState } from "pinia";
 import { useAuthStore } from "../stores/auth";
-import { useToast } from "vue-toastification";
+import { useCartStore } from "../stores/carts";
+import { useProductStore } from "../stores/products";
 
 export default {
     components: {
         Breadcrumb,
         ProductRelated,
     },
-    data() {
-        return {
-            product: {
-                name: "",
-                description: "",
-                format_price: "",
-                category: {
-                    name: "",
-                },
-                file: {
-                    url: "",
-                },
-            },
-            cart: {
-                product_id: null,
-            },
-            query_params: {
-                include: "category,file",
-            },
-        };
-    },
     computed: {
-        params: function () {
-            return {
-                include: this.query_params.include,
-            };
-        },
+        ...mapState(useProductStore, ["product"]),
         ...mapState(useAuthStore, ["token"]),
     },
     created() {
-        this.loadProduct();
         document.title = `Shayna Store - ${this.$route.meta.title}`;
+        this.loadProduct();
     },
     methods: {
+        ...mapActions(useProductStore, ["show"]),
+        ...mapActions(useCartStore, ["save"]),
         async loadProduct() {
             const slug = this.$route.params.slug;
+            const params = {
+                include: "category,file",
+            };
 
             if (slug != undefined) {
-                const response = await axios.get(`products/${slug}`, {
-                    params: this.params,
-                });
-
-                this.product = response.data.data;
-                this.cart.product_id = response.data.data.id;
+                await this.show(slug, params);
             }
         },
         async addToCart() {
-            const toast = useToast();
-
-            try {
-                await axios.post("carts/store", this.cart, {
-                    headers: {
-                        Authorization: this.token,
-                    },
-                });
-
-                toast.success("Successfully add to cart.");
-            } catch (error) {
-                const data = error.response.data;
-                if (data.message != null) {
-                    toast.error(data.message);
-                }
-            }
+            const data = {
+                product_id: this.product.id,
+            };
+            await this.save(data);
         },
     },
 };

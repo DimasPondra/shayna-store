@@ -63,22 +63,18 @@
 <script>
 import axios from "axios";
 import Breadcrumb from "../components/Breadcrumb.vue";
-import { mapState } from "pinia";
+import { mapActions, mapState } from "pinia";
 import { useAuthStore } from "../stores/auth";
 import router from "../router";
 import { useToast } from "vue-toastification";
+import { useCartStore } from "../stores/carts";
 
 export default {
     components: {
         Breadcrumb,
     },
-    data() {
-        return {
-            carts: [],
-            total: 0,
-        };
-    },
     computed: {
+        ...mapState(useCartStore, ["carts", "total"]),
         params: function () {
             return {
                 include: "product,user,file",
@@ -90,40 +86,17 @@ export default {
         },
     },
     created() {
-        this.loadData();
         document.title = `Shayna Store - ${this.$route.meta.title}`;
+        this.loadCarts();
     },
     methods: {
-        async loadData() {
-            const response = await axios.get("carts", {
-                params: this.params,
-                headers: {
-                    Authorization: this.token,
-                },
-            });
-
-            this.carts = response.data.data;
-
-            this.carts.forEach((cart) => {
-                this.total += parseInt(cart.product.price);
-            });
+        ...mapActions(useCartStore, ["get", "delete"]),
+        async loadCarts() {
+            await this.get(this.params);
         },
         async handleDelete(id) {
-            const toast = useToast();
-
-            try {
-                await axios.delete(`carts/${id}/delete`, {
-                    headers: {
-                        Authorization: this.token,
-                    },
-                });
-
-                this.total = 0;
-                this.loadData();
-                toast.success("successfully deleted.");
-            } catch (error) {
-                console.log(error);
-            }
+            await this.delete(id);
+            await this.loadCarts();
         },
         async handleCheckout() {
             const toast = useToast();
