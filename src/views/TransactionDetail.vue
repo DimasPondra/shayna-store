@@ -124,75 +124,38 @@
 </template>
 
 <script>
-import axios from "axios";
 import Breadcrumb from "../components/Breadcrumb.vue";
-import { mapState } from "pinia";
-import { useAuthStore } from "../stores/auth";
+
+import { mapActions, mapState } from "pinia";
+import { useBankAccountStore } from "../stores/bank-accounts";
+import { useTransactionStore } from "../stores/transactions";
 
 export default {
     components: {
         Breadcrumb,
     },
-    data() {
-        return {
-            transaction: {
-                id: null,
-                uuid: null,
-                sub_total: "",
-                total: "",
-                status: "",
-                user: {
-                    name: "",
-                    email: "",
-                    phone: "",
-                    address: "",
-                },
-                transaction_details: [],
-            },
-            bank_account: {
-                name: "",
-                number: "",
-                bank: {
-                    name: "",
-                },
-            },
-        };
-    },
     computed: {
+        ...mapState(useTransactionStore, ["transaction"]),
+        ...mapState(useBankAccountStore, ["bank_account"]),
         params: function () {
             return {
                 include: "user,transaction_details",
             };
         },
-        ...mapState(useAuthStore, ["token"]),
     },
     created() {
-        this.loadData();
-        this.loadBankAccount();
         document.title = `Shayna Store - ${this.$route.meta.title}`;
+        this.loadTransaction();
+        this.loadBankAccount();
     },
     methods: {
-        async loadData() {
-            const response = await axios.get(`transactions/${this.$route.params.id}/show`, {
-                params: this.params,
-                headers: {
-                    Authorization: this.token,
-                },
-            });
-
-            this.transaction = response.data.data;
+        ...mapActions(useTransactionStore, ["show"]),
+        ...mapActions(useBankAccountStore, ["showActiveStatus"]),
+        async loadTransaction() {
+            await this.show(this.$route.params.id, this.params);
         },
         async loadBankAccount() {
-            const response = await axios.get("bank-accounts/active-status", {
-                params: {
-                    include: "bank",
-                },
-                headers: {
-                    Authorization: this.token,
-                },
-            });
-
-            this.bank_account = response.data.data;
+            await this.showActiveStatus();
         },
     },
 };
