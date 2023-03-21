@@ -55,6 +55,14 @@
                             >
                         </li>
                         <li class="nav-item">
+                            <RouterLink
+                                to="/transactions"
+                                class="nav-link"
+                                :class="this.$route.meta.name_page == 'transactions' ? 'active' : ''"
+                                >Transaction</RouterLink
+                            >
+                        </li>
+                        <li class="nav-item">
                             <button @click="handleLogout" class="nav-link border-0 bg-white">Logout</button>
                         </li>
                     </ul>

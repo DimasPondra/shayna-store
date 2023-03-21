@@ -5,6 +5,7 @@ import { useAuthStore } from "./auth";
 
 export const useTransactionStore = defineStore("transactions", {
     state: () => ({
+        transactions: [],
         transaction: {
             id: null,
             uuid: null,
@@ -21,6 +22,23 @@ export const useTransactionStore = defineStore("transactions", {
         },
     }),
     actions: {
+        async get(params) {
+            const auth = useAuthStore();
+            const alert = useAlertStore();
+
+            try {
+                const res = await axios.get("transactions", {
+                    params: params,
+                    headers: {
+                        Authorization: auth.token,
+                    },
+                });
+
+                this.transactions = res.data.data;
+            } catch (error) {
+                alert.handleError(error);
+            }
+        },
         async show(id, params) {
             this.clear();
             const auth = useAuthStore();
