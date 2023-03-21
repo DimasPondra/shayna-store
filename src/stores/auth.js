@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import axios from "axios";
 import router from "../router";
 import SecureLS from "secure-ls";
-import { useToast } from "vue-toastification";
+import { useAlertStore } from "./alert";
 
 const secureLS = new SecureLS({
     encodingType: "aes",
@@ -15,24 +15,21 @@ export const useAuthStore = defineStore("auth", {
     }),
     actions: {
         async login(user) {
-            const toast = useToast();
+            const alert = useAlertStore();
 
             try {
                 const response = await axios.post("login", user);
                 this.token = "Bearer " + response.data.access_token;
 
-                toast.success("Welcome.");
+                alert.handleSuccess("Welcome.");
                 router.push("/");
             } catch (error) {
-                const data = error.response.data;
-                if (data.message != null) {
-                    toast.error(data.message);
-                }
+                alert.handleError(error);
             }
         },
 
         async logout() {
-            const toast = useToast();
+            const alert = useAlertStore();
 
             try {
                 await axios.post("logout", "", {
@@ -41,14 +38,11 @@ export const useAuthStore = defineStore("auth", {
                     },
                 });
 
-                toast.success("Logged out successfully.");
+                alert.handleSuccess("Logged out successfully.");
                 this.token = null;
                 router.push("/login");
             } catch (error) {
-                const data = error.response.data;
-                if (data.message != null) {
-                    toast.error(data.message);
-                }
+                alert.handleError(error);
             }
         },
     },

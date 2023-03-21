@@ -1,6 +1,6 @@
 import axios from "axios";
 import { defineStore } from "pinia";
-import { useToast } from "vue-toastification";
+import { useAlertStore } from "./alert";
 import { useAuthStore } from "./auth";
 
 export const useCartStore = defineStore("carts", {
@@ -11,24 +11,29 @@ export const useCartStore = defineStore("carts", {
     actions: {
         async get(params) {
             const auth = useAuthStore();
+            const alert = useAlertStore();
 
-            const res = await axios.get("carts", {
-                params: params,
-                headers: {
-                    Authorization: auth.token,
-                },
-            });
+            try {
+                const res = await axios.get("carts", {
+                    params: params,
+                    headers: {
+                        Authorization: auth.token,
+                    },
+                });
 
-            this.carts = res.data.data;
+                this.carts = res.data.data;
 
-            this.total = 0;
-            this.carts.forEach((cart) => {
-                this.total += parseInt(cart.product.price);
-            });
+                this.total = 0;
+                this.carts.forEach((cart) => {
+                    this.total += parseInt(cart.product.price);
+                });
+            } catch (error) {
+                alert.handleError(error);
+            }
         },
         async save(data) {
             const auth = useAuthStore();
-            const toast = useToast();
+            const alert = useAlertStore();
 
             try {
                 await axios.post("carts/store", data, {
@@ -37,17 +42,14 @@ export const useCartStore = defineStore("carts", {
                     },
                 });
 
-                toast.success("Successfully add to cart.");
+                alert.handleSuccess("Successfully add to cart.");
             } catch (error) {
-                const data = error.response.data;
-                if (data.message != null) {
-                    toast.error(data.message);
-                }
+                alert.handleError(error);
             }
         },
         async delete(id) {
             const auth = useAuthStore();
-            const toast = useToast();
+            const alert = useAlertStore();
 
             try {
                 await axios.delete(`carts/${id}/delete`, {
@@ -58,9 +60,9 @@ export const useCartStore = defineStore("carts", {
 
                 this.total = 0;
 
-                toast.success("successfully deleted.");
+                alert.handleSuccess("successfully deleted.");
             } catch (error) {
-                console.log(error);
+                alert.handleError(error);
             }
         },
     },

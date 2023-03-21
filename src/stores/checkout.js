@@ -1,14 +1,14 @@
 import axios from "axios";
 import { defineStore } from "pinia";
-import { useToast } from "vue-toastification";
 import router from "../router";
+import { useAlertStore } from "./alert";
 import { useAuthStore } from "./auth";
 
 export const useCheckoutStore = defineStore("checkout", {
     actions: {
         async checkout() {
             const auth = useAuthStore();
-            const toast = useToast();
+            const alert = useAlertStore();
 
             try {
                 const res = await axios.post(
@@ -25,10 +25,7 @@ export const useCheckoutStore = defineStore("checkout", {
 
                 router.push(`transactions/${id}`);
             } catch (error) {
-                const data = error.response.data;
-                if (data.message != null) {
-                    toast.error(data.message);
-                }
+                alert.handleError(error);
             }
         },
     },

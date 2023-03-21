@@ -1,5 +1,6 @@
 import axios from "axios";
 import { defineStore } from "pinia";
+import { useAlertStore } from "./alert";
 
 export const useProductStore = defineStore("products", {
     state: () => ({
@@ -26,11 +27,32 @@ export const useProductStore = defineStore("products", {
             this.products = res.data.data;
         },
         async show(slug, params) {
-            const res = await axios.get(`products/${slug}`, {
-                params: params,
-            });
+            this.clear();
+            const alert = useAlertStore();
 
-            this.product = res.data.data;
+            try {
+                const res = await axios.get(`products/${slug}`, {
+                    params: params,
+                });
+
+                this.product = res.data.data;
+            } catch (error) {
+                alert.handleError(error);
+            }
+        },
+        clear() {
+            this.product = {
+                id: null,
+                name: "",
+                description: "",
+                format_price: "",
+                category: {
+                    name: "",
+                },
+                file: {
+                    url: "",
+                },
+            };
         },
     },
 });
