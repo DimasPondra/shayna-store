@@ -61,13 +61,11 @@
 </template>
 
 <script>
-import axios from "axios";
 import Breadcrumb from "../components/Breadcrumb.vue";
+
 import { mapActions, mapState } from "pinia";
-import { useAuthStore } from "../stores/auth";
-import router from "../router";
-import { useToast } from "vue-toastification";
 import { useCartStore } from "../stores/carts";
+import { useCheckoutStore } from "../stores/checkout";
 
 export default {
     components: {
@@ -80,7 +78,6 @@ export default {
                 include: "product,user,file",
             };
         },
-        ...mapState(useAuthStore, ["token"]),
         currency: function () {
             return this.total.toLocaleString("id-ID", { style: "currency", currency: "IDR" });
         },
@@ -91,6 +88,7 @@ export default {
     },
     methods: {
         ...mapActions(useCartStore, ["get", "delete"]),
+        ...mapActions(useCheckoutStore, ["checkout"]),
         async loadCarts() {
             await this.get(this.params);
         },
@@ -99,28 +97,7 @@ export default {
             await this.loadCarts();
         },
         async handleCheckout() {
-            const toast = useToast();
-
-            try {
-                const response = await axios.post(
-                    "checkout/store",
-                    {},
-                    {
-                        headers: {
-                            Authorization: this.token,
-                        },
-                    }
-                );
-
-                let id = response.data.data.transaction_id;
-
-                router.push(`transactions/${id}`);
-            } catch (error) {
-                const data = error.response.data;
-                if (data.message != null) {
-                    toast.error(data.message);
-                }
-            }
+            await this.checkout();
         },
     },
 };
