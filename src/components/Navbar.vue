@@ -2,9 +2,9 @@
     <header>
         <nav class="container navbar navbar-expand-lg bg-none">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <img src="../assets/images/logo_website_shayna.png" alt="" srcset="" />
-                </a>
+                <RouterLink to="/" class="navbar-brand"
+                    ><img src="../assets/images/logo_website_shayna.png" alt="logo"
+                /></RouterLink>
                 <button
                     class="navbar-toggler"
                     type="button"

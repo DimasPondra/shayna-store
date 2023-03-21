@@ -5,7 +5,9 @@
                 <div class="col-lg-5">
                     <div class="footer-left">
                         <div class="footer-logo">
-                            <a href="#"><img src="../assets/images/logo_website_shayna_white.png" alt="logo" /></a>
+                            <RouterLink to="/">
+                                <img src="../assets/images/logo_website_shayna_white.png" alt="logo" />
+                            </RouterLink>
                         </div>
                         <ul>
                             <li>Address: Setra Duta, Bandung</li>
@@ -13,10 +15,10 @@
                             <li>Email: hello.shayna@mail.com</li>
                         </ul>
                         <div class="footer-social">
-                            <a href=""><font-awesome-icon icon="fa-brands fa-facebook" /></a>
-                            <a href=""><font-awesome-icon icon="fa-brands fa-instagram" /></a>
-                            <a href=""><font-awesome-icon icon="fa-brands fa-twitter" /></a>
-                            <a href=""><font-awesome-icon icon="fa-brands fa-pinterest" /></a>
+                            <RouterLink to="/"><font-awesome-icon icon="fa-brands fa-facebook" /></RouterLink>
+                            <RouterLink to="/"><font-awesome-icon icon="fa-brands fa-instagram" /></RouterLink>
+                            <RouterLink to="/"><font-awesome-icon icon="fa-brands fa-twitter" /></RouterLink>
+                            <RouterLink to="/"><font-awesome-icon icon="fa-brands fa-pinterest" /></RouterLink>
                         </div>
                     </div>
                 </div>
