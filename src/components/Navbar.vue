@@ -39,7 +39,7 @@
                         <li class="nav-item">
                             <RouterLink
                                 to="/login"
-                                class="nav-link"
+                                class="btn btn-warning ms-lg-3"
                                 :class="this.$route.meta.name_page == 'login' ? 'active' : ''"
                                 >Login</RouterLink
                             >
@@ -63,7 +63,7 @@
                             >
                         </li>
                         <li class="nav-item">
-                            <button @click="handleLogout" class="nav-link border-0 bg-white">Logout</button>
+                            <button @click="handleLogout" class="btn btn-danger ms-lg-3">Logout</button>
                         </li>
                     </ul>
                 </div>
